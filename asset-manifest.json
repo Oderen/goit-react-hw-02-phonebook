@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Oderen/Hm2-phonebook/static/css/main.7acaea2f.css",
+    "main.js": "/Oderen/Hm2-phonebook/static/js/main.4c0104f9.js",
+    "index.html": "/Oderen/Hm2-phonebook/index.html",
+    "main.7acaea2f.css.map": "/Oderen/Hm2-phonebook/static/css/main.7acaea2f.css.map",
+    "main.4c0104f9.js.map": "/Oderen/Hm2-phonebook/static/js/main.4c0104f9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7acaea2f.css",
+    "static/js/main.4c0104f9.js"
+  ]
+}
