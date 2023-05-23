@@ -7,7 +7,7 @@ import initialContacts from './data/contacts.json';
 export class App extends Component {
   state = {
     contacts: initialContacts,
-    filter: 'sass',
+    filter: '',
     name: '',
     number: '',
   };
@@ -19,7 +19,6 @@ export class App extends Component {
   };
 
   deleteContact = contactId => {
-    // console.log(contactId);
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
@@ -37,20 +36,21 @@ export class App extends Component {
   }
 
   changeFilter = e => {
+    console.log(this.state.filter);
     this.setState({ filter: e.currentTarget.value });
   };
 
+  // getVisibleContacts = () => {
+  //   const { filter, contacts } = this.state;
+  //   const normalizedFilter = filter.toLowerCase();
+
+  //   return contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(normalizedFilter)
+  //   );
+  // };
+
   render() {
-    console.log(
-      this.state.contacts.filter(contact =>
-        contact.text.includes(this.state.filter)
-      )
-    );
-
-    const filteredContacts = this.state.contacts.filter(contact =>
-      contact.text.includes(this.state.filter)
-    );
-
+    console.log(this.state.contacts);
     return (
       <div>
         <h1>Phonebook</h1>
@@ -97,8 +97,7 @@ export class App extends Component {
             />
           </label>
           <ul>
-            {filteredContacts.map(({ id, name, number }) => (
-              // console.log(id),
+            {initialContacts.map(({ id, name, number }) => (
               <ContactList
                 key={id}
                 id={id}

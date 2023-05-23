@@ -8,7 +8,7 @@ export default function ContactList({ id, name, number, onDelete }) {
           <span>{name}:</span>
           <span>{number}</span>
         </p>
-        <button type="button" onClick={() => onDelete(id)}>
+        <button type="button" onClick={() => onDelete}>
           Delete
         </button>
       </li>
