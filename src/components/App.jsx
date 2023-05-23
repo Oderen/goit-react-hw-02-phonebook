@@ -7,7 +7,7 @@ import initialContacts from './data/contacts.json';
 export class App extends Component {
   state = {
     contacts: initialContacts,
-    filter: '',
+    filter: 'sass',
     name: '',
     number: '',
   };
@@ -36,7 +36,21 @@ export class App extends Component {
     this.setState({ name: '', number: '' });
   }
 
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
   render() {
+    console.log(
+      this.state.contacts.filter(contact =>
+        contact.text.includes(this.state.filter)
+      )
+    );
+
+    // const filteredContacts = this.state.contacts.filter(contact =>
+    //   contact.text.includes(this.state.filter)
+    // );
+
     return (
       <div>
         <h1>Phonebook</h1>
@@ -78,7 +92,7 @@ export class App extends Component {
               value={this.state.filter}
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              onChange={this.handleNameChange}
+              onChange={this.changeFilter}
               required
             />
           </label>
@@ -90,7 +104,7 @@ export class App extends Component {
                 id={id}
                 name={name}
                 number={number}
-                onDelete={this.deleteContact}
+                onDelete={this.deleteContact(id)}
               />
             ))}
           </ul>

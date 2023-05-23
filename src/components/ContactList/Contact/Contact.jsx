@@ -1,6 +1,4 @@
-// import Contact from './Contact/Contact';
-
-export default function ContactList({ id, name, number, onDelete }) {
+export default function Contact() {
   return (
     <ul>
       <li>
