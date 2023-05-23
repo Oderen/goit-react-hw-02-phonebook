@@ -47,9 +47,9 @@ export class App extends Component {
       )
     );
 
-    // const filteredContacts = this.state.contacts.filter(contact =>
-    //   contact.text.includes(this.state.filter)
-    // );
+    const filteredContacts = this.state.contacts.filter(contact =>
+      contact.text.includes(this.state.filter)
+    );
 
     return (
       <div>
@@ -97,7 +97,7 @@ export class App extends Component {
             />
           </label>
           <ul>
-            {initialContacts.map(({ id, name, number }) => (
+            {filteredContacts.map(({ id, name, number }) => (
               // console.log(id),
               <ContactList
                 key={id}
