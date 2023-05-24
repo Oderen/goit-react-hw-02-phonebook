@@ -85,7 +85,7 @@ export default class ContactForm extends Component {
   }
 }
 
-ContactForm.prototype = {
+ContactForm.propTypes = {
   sendDataToApp: PropTypes.func.isRequired,
   contacts: PropTypes.array.isRequired,
 };
