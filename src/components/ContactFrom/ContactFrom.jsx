@@ -29,8 +29,7 @@ export default class ContactForm extends Component {
 
     if (this.onDuplicateCheck(contact.name)) {
       e.currentTarget.reset();
-      // name.focus();
-      // number.focus();
+      // name.focus() || number.focus()
       Notiflix.Notify.failure(`${contact.name} is already in contacts`);
       return;
     }
