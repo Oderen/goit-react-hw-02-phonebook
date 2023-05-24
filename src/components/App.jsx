@@ -1,6 +1,8 @@
 import { Component } from 'react';
 
 import ContactList from './ContactList/ContactList';
+import ContactForm from './ContactFrom/ContactFrom';
+import Filter from './Filter/Filter';
 
 import initialContacts from './data/contacts.json';
 
@@ -8,14 +10,6 @@ export class App extends Component {
   state = {
     contacts: initialContacts,
     filter: '',
-    name: '',
-    number: '',
-  };
-
-  handleNameChange = e => {
-    const { name, value } = e.currentTarget;
-
-    this.setState({ [name]: value });
   };
 
   deleteContact = contactId => {
@@ -24,89 +18,44 @@ export class App extends Component {
     }));
   };
 
-  submit = e => {
-    e.preventDefault();
-
-    console.log(this.state);
-    this.reset();
-  };
-
-  reset() {
-    this.setState({ name: '', number: '' });
-  }
-
   changeFilter = e => {
-    console.log(this.state.filter);
     this.setState({ filter: e.currentTarget.value });
   };
 
-  // getVisibleContacts = () => {
-  //   const { filter, contacts } = this.state;
-  //   const normalizedFilter = filter.toLowerCase();
+  formOnSubmit = (data, newContact) => {
+    console.log('Form data >>> ', data);
 
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(normalizedFilter)
-  //   );
-  // };
+    this.setState(({ contacts }) => ({
+      contacts: [JSON.parse(newContact), ...contacts],
+    }));
+  };
 
   render() {
-    console.log(this.state.contacts);
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+
+    const filteredContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+
     return (
       <div>
         <h1>Phonebook</h1>
-        <form onSubmit={this.submit}>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              value={this.state.name}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              onChange={this.handleNameChange}
-              required
-            />
-          </label>
-          <label>
-            Number
-            <input
-              type="tel"
-              name="number"
-              value={this.state.number}
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              onChange={this.handleNameChange}
-              required
-            />
-          </label>
-          <button type="submit">Add contact</button>
-        </form>
+        <ContactForm
+          sendDataToApp={this.formOnSubmit}
+          contacts={this.state.contacts}
+        />
 
         <div>
           <h2>Contacts</h2>
-          <label>
-            Find contacts by name
-            <input
-              type="text"
-              name="filter"
-              value={this.state.filter}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              onChange={this.changeFilter}
-              required
-            />
-          </label>
-          <ul>
-            {initialContacts.map(({ id, name, number }) => (
-              <ContactList
-                key={id}
-                id={id}
-                name={name}
-                number={number}
-                onDelete={this.deleteContact(id)}
-              />
-            ))}
-          </ul>
+          <Filter
+            filterValue={this.state.filter}
+            changeFilter={this.changeFilter}
+          />
+          <ContactList
+            contacts={filteredContacts}
+            onDelete={this.deleteContact}
+          />
         </div>
       </div>
     );

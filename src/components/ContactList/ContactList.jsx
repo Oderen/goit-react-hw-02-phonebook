@@ -1,17 +1,15 @@
-// import Contact from './Contact/Contact';
+import Contact from './Contact/Contact';
+import PropTypes from 'prop-types';
 
-export default function ContactList({ id, name, number, onDelete }) {
+export default function ContactList({ contacts, onDelete }) {
   return (
     <ul>
-      <li>
-        <p>
-          <span>{name}:</span>
-          <span>{number}</span>
-        </p>
-        <button type="button" onClick={() => onDelete}>
-          Delete
-        </button>
-      </li>
+      <Contact key={contacts.id} contacts={contacts} onDelete={onDelete} />
     </ul>
   );
 }
+
+ContactList.propTypes = {
+  contacts: PropTypes.array.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
